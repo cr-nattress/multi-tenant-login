@@ -89,6 +89,33 @@ The application currently uses mock data services for authentication and dashboa
   - Email: admin@example.com
   - Password: admin123
 
+## Version Management
+
+This project uses Git hooks to automatically manage version numbers in package.json files:
+
+- **Pre-commit Hook**: Automatically increments the patch version (e.g., 1.0.0 → 1.0.1) in all package.json files with each commit
+- **Pre-push Hook**: Automatically increments the minor version (e.g., 1.0.1 → 1.1.0) in all package.json files with each push
+
+### Setting Up Git Hooks (Windows)
+
+To set up the Git hooks on Windows, run the following command:
+
+```bash
+.\setup-windows-git-hooks.bat
+```
+
+This will create Windows-compatible Git hook scripts that will automatically update version numbers.
+
+### Manual Version Management
+
+If you prefer to manage versions manually, you can:
+
+1. Disable the Git hooks by renaming the .cmd files in the .git/hooks directory
+2. Update version numbers manually in the following files:
+   - ./package.json
+   - ./src/frontend/package.json
+   - ./src/backend/package.json
+
 ## Future Development
 
 - Implement backend services with real authentication
