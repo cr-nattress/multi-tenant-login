@@ -18,7 +18,7 @@
     }
   }
   
-  function toggleQuestion(index) {
+  function toggleQuestion(index: number) {
     logger.debug('FAQ question toggled', { index, previousState: activeQuestion });
     activeQuestion = activeQuestion === index ? -1 : index;
   }
@@ -27,7 +27,7 @@
   const faqItems = [
     {
       question: 'What is this application?',
-      answer: 'This is a Netflix-inspired multi-tenant login application with logging capabilities.'
+      answer: 'This is a Netflix-inspired Launchify application with logging capabilities.'
     },
     {
       question: 'How does the logging system work?',
@@ -73,7 +73,7 @@
 </script>
 
 <svelte:head>
-  <title>Netflix-Inspired App</title>
+  <title>Launchify</title>
 </svelte:head>
 
 <!-- Hero Section -->
@@ -88,8 +88,8 @@
     </div>
     
     <div class="z-10 text-center px-6 max-w-3xl">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4">Unlimited movies, TV shows, and more.</h1>
-      <p class="text-xl md:text-2xl mb-8">Watch anywhere. Cancel anytime.</p>
+      <h1 class="text-5xl md:text-6xl font-bold mb-4">Welcome to Launchify</h1>
+      <p class="text-xl md:text-2xl mb-8">Unlimited movies, TV shows, and more.</p>
       <button class="btn-netflix text-xl" on:click={testLogging}>Test Logging</button>
     </div>
   </section>

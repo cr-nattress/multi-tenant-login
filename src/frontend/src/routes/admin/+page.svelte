@@ -3,15 +3,16 @@
   import { authStore } from '$lib/services/authService';
   import { dashboardService } from '$lib/services/dashboardService';
   import { goto } from '$app/navigation';
+  import type { Unsubscriber } from 'svelte/store';
   
-  let user = null;
-  let adminData = null;
+  let user: any = null;
+  let adminData: any = null;
   let isLoading = true;
   let activeTab = 'overview';
   
-  onMount(async () => {
+  onMount(() => {
     // Subscribe to auth store to get current user
-    const unsubscribe = authStore.subscribe(auth => {
+    const unsubscribe: Unsubscriber = authStore.subscribe(auth => {
       user = auth.user;
       
       // Redirect if not logged in or not an admin
@@ -21,24 +22,29 @@
     });
     
     // Get admin dashboard data
-    try {
-      adminData = await dashboardService.getAdminDashboardData();
-    } catch (error) {
-      console.error('Error fetching admin data:', error);
-    } finally {
-      isLoading = false;
-    }
+    const fetchData = async () => {
+      try {
+        adminData = await dashboardService.getAdminDashboardData();
+      } catch (error) {
+        console.error('Error fetching admin data:', error);
+      } finally {
+        isLoading = false;
+      }
+    };
     
+    fetchData();
+    
+    // Return the unsubscribe function
     return unsubscribe;
   });
   
-  function setActiveTab(tab) {
+  function setActiveTab(tab: string) {
     activeTab = tab;
   }
 </script>
 
 <svelte:head>
-  <title>Admin Dashboard</title>
+  <title>Launchify - Admin Dashboard</title>
 </svelte:head>
 
 <div class="pt-24 pb-12 px-4 md:px-8">
@@ -98,22 +104,22 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Current Month</h3>
-                <p class="text-3xl font-bold text-netflix-red">{adminData.revenueData.currentMonth}</p>
+                <p class="text-3xl font-bold text-netflix-red">{adminData?.revenueData?.currentMonth || '$0'}</p>
                 <p class="text-netflix-light-gray mt-2 text-sm">Revenue</p>
               </div>
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Previous Month</h3>
-                <p class="text-3xl font-bold text-netflix-red">{adminData.revenueData.previousMonth}</p>
+                <p class="text-3xl font-bold text-netflix-red">{adminData?.revenueData?.previousMonth || '$0'}</p>
                 <p class="text-netflix-light-gray mt-2 text-sm">Revenue</p>
               </div>
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Year to Date</h3>
-                <p class="text-3xl font-bold text-netflix-red">{adminData.revenueData.yearToDate}</p>
+                <p class="text-3xl font-bold text-netflix-red">{adminData?.revenueData?.yearToDate || '$0'}</p>
                 <p class="text-netflix-light-gray mt-2 text-sm">Total Revenue</p>
               </div>
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Growth</h3>
-                <p class="text-3xl font-bold text-green-500">{adminData.revenueData.percentageChange}</p>
+                <p class="text-3xl font-bold text-green-500">{adminData?.revenueData?.percentageChange || '0%'}</p>
                 <p class="text-netflix-light-gray mt-2 text-sm">Month over Month</p>
               </div>
             </div>
@@ -125,23 +131,23 @@
             <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Total Users</h3>
-                <p class="text-3xl font-bold text-netflix-red">{adminData.userStats.totalUsers}</p>
+                <p class="text-3xl font-bold text-netflix-red">{adminData?.userStats?.totalUsers || 0}</p>
               </div>
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Active Users</h3>
-                <p class="text-3xl font-bold text-netflix-red">{adminData.userStats.activeUsers}</p>
+                <p class="text-3xl font-bold text-netflix-red">{adminData?.userStats?.activeUsers || 0}</p>
               </div>
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Premium</h3>
-                <p class="text-3xl font-bold text-netflix-red">{adminData.userStats.premiumUsers}</p>
+                <p class="text-3xl font-bold text-netflix-red">{adminData?.userStats?.premiumUsers || 0}</p>
               </div>
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Standard</h3>
-                <p class="text-3xl font-bold text-netflix-red">{adminData.userStats.standardUsers}</p>
+                <p class="text-3xl font-bold text-netflix-red">{adminData?.userStats?.standardUsers || 0}</p>
               </div>
               <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold mb-2">Basic</h3>
-                <p class="text-3xl font-bold text-netflix-red">{adminData.userStats.basicUsers}</p>
+                <p class="text-3xl font-bold text-netflix-red">{adminData?.userStats?.basicUsers || 0}</p>
               </div>
             </div>
           </div>
@@ -160,7 +166,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {#each adminData.recentActivity as activity}
+                  {#each adminData?.recentActivity || [] as activity}
                     <tr class="border-b border-gray-700 hover:bg-gray-800">
                       <td class="p-4">{activity.date}</td>
                       <td class="p-4">{activity.description}</td>

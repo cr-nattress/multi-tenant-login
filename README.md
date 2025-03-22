@@ -1,4 +1,4 @@
-# Multi-Tenant Login Application
+# Launchify Application
 
 A feature-rich web application with a Netflix-inspired design, featuring a user dashboard, an administrative panel, and a modal-based login system supporting Google, Facebook, and traditional username/password authentication.
 

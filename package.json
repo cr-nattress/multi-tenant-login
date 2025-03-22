@@ -1,5 +1,5 @@
 {
-  "name": "multi-tenant-login",
+  "name": "launchify",
   "version": "1.0.0",
   "description": "A feature-rich web application with a Netflix-inspired design, user dashboard, admin panel, and multi-provider authentication",
   "main": "index.js",

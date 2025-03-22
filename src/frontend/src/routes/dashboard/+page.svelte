@@ -3,14 +3,15 @@
   import { authStore } from '$lib/services/authService';
   import { dashboardService } from '$lib/services/dashboardService';
   import { goto } from '$app/navigation';
+  import type { Unsubscriber } from 'svelte/store';
   
-  let user = null;
-  let dashboardData = [];
+  let user: any = null;
+  let dashboardData: any = {}; 
   let isLoading = true;
   
-  onMount(async () => {
+  onMount(() => {
     // Subscribe to auth store to get current user
-    const unsubscribe = authStore.subscribe(auth => {
+    const unsubscribe: Unsubscriber = authStore.subscribe(auth => {
       user = auth.user;
       if (!auth.isLoggedIn) {
         goto('/');
@@ -18,20 +19,25 @@
     });
     
     // Get dashboard data
-    try {
-      dashboardData = await dashboardService.getUserDashboardData();
-    } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-    } finally {
-      isLoading = false;
-    }
+    const fetchData = async () => {
+      try {
+        dashboardData = await dashboardService.getUserDashboardData();
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      } finally {
+        isLoading = false;
+      }
+    };
     
+    fetchData();
+    
+    // Return the unsubscribe function
     return unsubscribe;
   });
 </script>
 
 <svelte:head>
-  <title>User Dashboard</title>
+  <title>Launchify - User Dashboard</title>
 </svelte:head>
 
 <div class="pt-24 pb-12 px-4 md:px-8">
@@ -47,7 +53,7 @@
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        {#each dashboardData.stats || [] as stat}
+        {#each dashboardData?.stats || [] as stat}
           <div class="bg-netflix-dark-gray p-6 rounded-lg shadow-lg">
             <h3 class="text-xl font-semibold mb-2">{stat.title}</h3>
             <p class="text-3xl font-bold text-netflix-red">{stat.value}</p>
