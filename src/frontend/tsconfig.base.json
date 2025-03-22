@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"],
+      "$components": ["./src/lib/components"],
+      "$components/*": ["./src/lib/components/*"],
+      "$services": ["./src/lib/services"],
+      "$services/*": ["./src/lib/services/*"]
+    },
+    "rootDirs": [
+      ".",
+      "./.svelte-kit/types"
+    ],
+    "isolatedModules": true,
+    "lib": [
+      "esnext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "noEmit": true,
+    "target": "esnext"
+  },
+  "include": [
+    ".svelte-kit/ambient.d.ts",
+    ".svelte-kit/types/**/$types.d.ts",
+    "vite.config.js",
+    "vite.config.ts",
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.svelte",
+    "tests/**/*.js",
+    "tests/**/*.ts",
+    "tests/**/*.svelte"
+  ]
+}

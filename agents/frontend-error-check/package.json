@@ -1,0 +1,19 @@
+{
+  "name": "frontend-error-check",
+  "version": "1.0.0",
+  "description": "Frontend error checking agent for SvelteKit applications",
+  "type": "module",
+  "main": "frontend-error-check.js",
+  "scripts": {
+    "error-check": "bun frontend-error-check.ts ../../src/frontend"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "glob": "^10.3.10"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.5",
+    "bun-types": "latest"
+  }
+}

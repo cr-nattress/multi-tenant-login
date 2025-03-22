@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles */
+body {
+  @apply bg-netflix-black text-white;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Custom utility classes */
+.btn-netflix {
+  @apply bg-netflix-red text-white font-bold py-3 px-6 rounded;
+}
+
+.btn-netflix:hover {
+  @apply bg-red-700;
+}
+
+.hero-gradient {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.8) 100%);
+}

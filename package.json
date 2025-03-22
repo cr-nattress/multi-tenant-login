@@ -1,0 +1,55 @@
+{
+  "name": "multi-tenant-login",
+  "version": "1.0.0",
+  "description": "A feature-rich web application with a Netflix-inspired design, user dashboard, admin panel, and multi-provider authentication",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "install:all": "npm install && npm run install:frontend && npm run install:backend",
+    "install:frontend": "cd src/frontend && npm install",
+    "install:backend": "cd src/backend && npm install",
+    "frontend:dev": "cd src/frontend && cross-env PORT=3001 npm run dev",
+    "frontend:build": "cd src/frontend && npm run build",
+    "frontend:preview": "cd src/frontend && npm run preview",
+    "frontend:start": "cd src/frontend && npm run start",
+    "start": "npm run frontend:dev",
+    "backend:dev": "cd src/backend && npm run dev",
+    "backend:build": "cd src/backend && npm run build",
+    "dev": "concurrently \"npm run frontend:dev\" \"npm run backend:dev\"",
+    "build": "npm run frontend:build && npm run backend:build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "kill:all": "node scripts/kill-processes.js",
+    "kill:frontend": "node scripts/kill-processes.js 3001",
+    "kill:backend": "node scripts/kill-processes.js 5000"
+  },
+  "keywords": [
+    "netflix",
+    "sveltekit",
+    "tailwindcss",
+    "daisyui",
+    "authentication",
+    "dashboard",
+    "admin"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.11",
+    "cross-env": "^7.0.3",
+    "find-process": "^1.4.7",
+    "kill-port": "^2.0.1",
+    "puppeteer": "^24.4.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "private": true,
+  "workspaces": [
+    "src/frontend",
+    "src/backend"
+  ]
+}
